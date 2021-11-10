@@ -1,13 +1,26 @@
-import regex as re
+import re
+import nltk
+from nltk.stem import WordNetLemmatizer
 
-frase = '(85)985558599'
-if re.search('[-|+]?\d+([.]\d+)?',frase)[0] == frase:
-    print('Valid')
-else:
-    print('Not valid')
+def number_valid(number):
+    if re.search('[-|+]?\d+([.]\d+)?',number):
+        return 'Valid'
+    else:
+        return 'Not valid'
 
-if re.search("[(?]\d?\d\d[)?] ?\d\d\d\d\d[ |-]?\d\d\d\d", frase)[0] == frase:
-    print('Celular')
-else:
-    print('Fixo')
+def cell_or_fix(number):
+    value = re.search("(([(]\d?\d{2}[)])|(\d?\d{2})) ?\d?\d{4}[ |-]?\d{4}", number)
+    if value:
+        if value[0] == number:
+            return 'Valid'
+    return 'Not valid'
+
+
+print(cell_or_fix('8599912-3186'))
+
+
+print(re.sub('3',' ', '3543'))
+lemmatizer = WordNetLemmatizer()
+
+print("rocks :", lemmatizer.lemmatize("rocks"))
 
